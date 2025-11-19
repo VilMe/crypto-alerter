@@ -25,4 +25,16 @@ def get_coint() -> list[Coin]:
     data = requests.get(BASE_URL, params=payload)
     json: dict = data.json()
 
+    coin_list: list[Coin] = []
+    for item in json:
+        current_coin: Coin = Coin(name=item.get('name'),
+                                  symbol=item.get('symbol'),
+                                  current_price=item.get('current_price'),
+                                  high_24=item.get('high_24h'),
+                                  low_24h=item.get('low_24h'),
+                                  price_change_24h=item.get('price_change'),
+                                  price_change_percentage_24h=item.get('price_change_percentage_24h'))
+        coin_list.append(current_coin)
     
+    return coin_list
+
