@@ -5,6 +5,7 @@ from typing import Final
 
 BASE_URL: Final[str] = 'https://api.coingecko.com/api/v3/coins/markets'
 
+
 @dataclass
 class Coin: 
     name: str
@@ -24,13 +25,12 @@ def get_coins() -> list[Coin]:
     payload: dict = {'vs_currency': 'usd', 'order': 'market_cap_desc'}
     data = requests.get(BASE_URL, params=payload)
     json: dict = data.json()
-
     coin_list: list[Coin] = []
     for item in json:
         current_coin: Coin = Coin(name=item.get('name'),
                                   symbol=item.get('symbol'),
                                   current_price=item.get('current_price'),
-                                  high_24=item.get('high_24h'),
+                                  high_24h=item.get('high_24h'),
                                   low_24h=item.get('low_24h'),
                                   price_change_24h=item.get('price_change'),
                                   price_change_percentage_24h=item.get('price_change_percentage_24h'))
