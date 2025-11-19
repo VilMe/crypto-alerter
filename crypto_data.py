@@ -17,11 +17,11 @@ class Coin:
 
 
     def __str__(self):
-        return f'{self.name} ({self.symbold}): ${self.current_price:,}'
+        return f'{self.name} ({self.symbol}): ${self.current_price:,}'
     
 
-def get_coint() -> list[Coin]:
-    payload:dit = {'vs_currency': 'usd', 'order': 'market_cap_desc'}
+def get_coins() -> list[Coin]:
+    payload: dict = {'vs_currency': 'usd', 'order': 'market_cap_desc'}
     data = requests.get(BASE_URL, params=payload)
     json: dict = data.json()
 
@@ -38,3 +38,7 @@ def get_coint() -> list[Coin]:
     
     return coin_list
 
+if __name__ == '__main__':
+    coins = get_coins()
+    for coin in coins:
+        print(coin)
